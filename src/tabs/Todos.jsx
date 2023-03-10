@@ -1,9 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
-import { Grid, GridItem, AddTodoForm, EditForm, Text, Todo } from 'components';
+import { Grid, GridItem, AddTodoForm, Text, Todo } from 'components';
+
+const LS_KEY = 'my-todos';
 
 export function Todos() {
-  const [todos, setTodos] = useState([]);
+  let savedData = JSON.parse(window.localStorage.getItem(LS_KEY));
+  const [todos, setTodos] = useState(savedData ?? []);
+
+  useEffect(() => {
+    window.localStorage.setItem(LS_KEY, JSON.stringify(todos));
+  }, [todos]);
 
   const onAddTodo = newTodo => {
     setTodos(todos => [...todos, { id: nanoid(), text: newTodo }]);

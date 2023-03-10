@@ -14,4 +14,7 @@ export * from 'components/EditForm/EditForm.styled';
 export * from 'components/SearchForm/SearchForm.styled';
 export * from 'components/Section/Section.styled';
 export * from 'components/Text/Text.styled';
+export * from 'components/Error/Error';
 export * from 'components/Todo/Todo';
+export * from 'components/Loader/Loader';
+export * from 'components/Loader/Loader.styled';

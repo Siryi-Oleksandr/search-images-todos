@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 
 import * as ImageService from 'service/image-service';
 import { Button, SearchForm, Grid, GridItem, Text, CardItem } from 'components';
+import { Loader } from 'components/Loader/Loader';
+import { Error } from 'components';
 
 export function Gallery() {
   const [query, setQuery] = useState('');
@@ -24,10 +26,10 @@ export function Gallery() {
 
         // when bad request
         if (data.images.length === 0) {
-          alert(`"${query}" not found!`);
           setImages([]);
           setStatus('not found');
           setTotalPages(0);
+          alert(`"${query}" not found!`);
           return;
         }
 
@@ -39,7 +41,6 @@ export function Gallery() {
         setError(error);
         setStatus('rejected');
         alert(`Something went wrong`);
-        console.error(error);
       }
     }
 
@@ -61,24 +62,27 @@ export function Gallery() {
   return (
     <>
       <SearchForm onSubmit={onSubmit} />
-      {status === 'pending' && <Text textAlign="center">Loading ... 🥱</Text>}
+      {status === 'pending' && <Loader />}
+      {status !== 'rejected' ? (
+        <Grid>
+          {images.map(({ id, avg_color, alt, src }) => (
+            <GridItem key={id}>
+              <CardItem color={avg_color}>
+                <img src={src} alt={alt} />
+              </CardItem>
+            </GridItem>
+          ))}
+        </Grid>
+      ) : (
+        <Error error={error} />
+      )}
 
-      <Grid>
-        {images.map(({ id, avg_color, alt, src }) => (
-          <GridItem key={id}>
-            <CardItem color={avg_color}>
-              <img src={src} alt={alt} />
-            </CardItem>
-          </GridItem>
-        ))}
-      </Grid>
-
-      {availablePages && (
+      {availablePages && status === 'resolved' && (
         <Button type="buttom" onClick={onLoadMore}>
           Load more
         </Button>
       )}
-      {images.length === 0 && (
+      {images.length === 0 && status === 'idle' && (
         <Text textAlign="center">Sorry. There are no images ... 😭</Text>
       )}
     </>

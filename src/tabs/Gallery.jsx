@@ -1,9 +1,16 @@
 import { useState, useEffect } from 'react';
 
 import * as ImageService from 'service/image-service';
-import { Button, SearchForm, Grid, GridItem, Text, CardItem } from 'components';
-import { Loader } from 'components/Loader/Loader';
-import { Error } from 'components';
+import {
+  Button,
+  SearchForm,
+  Grid,
+  GridItem,
+  Text,
+  CardItem,
+  Error,
+  Loader,
+} from 'components';
 
 export function Gallery() {
   const [query, setQuery] = useState('');

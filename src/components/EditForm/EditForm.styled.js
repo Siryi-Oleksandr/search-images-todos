@@ -1,12 +1,8 @@
 import styled from '@emotion/styled';
 
 export const InputEditTodo = styled.input`
-  /* position: absolute;
-  top: 0;
-  left: 0; */
-
   width: 100%;
-  height: ${({ theme }) => theme.spacing(14)};
+  height: ${({ theme }) => theme.spacing(8)};
 
   border-style: none;
   border-bottom: 1px solid ${({ theme }) => theme.colors.dark};
@@ -18,7 +14,7 @@ export const InputEditTodo = styled.input`
 
   transition: ${({ theme }) => theme.animation.cubicBezier};
 
-  font-size: ${({ theme }) => theme.fontSizes.medium};
+  font-size: ${({ theme }) => theme.fontSizes.small};
   color: ${({ theme }) => theme.colors.dark};
   font-weight: 300;
   letter-spacing: 0.03em;

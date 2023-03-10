@@ -17,7 +17,6 @@ export function Todos() {
     setTodos(todos =>
       todos.map(todo => {
         if (todo.id === todoId) {
-          // todo.text = newText;
           return { id: todo.id, text: newText };
         }
         return todo;
